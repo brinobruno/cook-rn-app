@@ -1,10 +1,11 @@
-import { ScrollView, Text, View } from 'react-native'
+import { Alert, ScrollView, Text, View } from 'react-native'
 
 import { styles } from './styles'
 import { useState } from 'react'
 import { Ingredient } from '@/components/Ingredient'
 
 import apple from './../../images/apple.png'
+import { Selected } from '@/components/Selected'
 
 export default function Index() {
   const [selected, setSelected] = useState<string[]>([])
@@ -17,14 +18,24 @@ export default function Index() {
     setSelected((state) => [...state, value])
   }
 
+  function handleClearSelected() {
+    Alert.alert('Cleanup', 'Do you want to clear everything?', [
+      {
+        text: 'No',
+        style: 'cancel',
+      },
+      { text: 'Yes', onPress: () => setSelected([]) },
+    ])
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Escolha {'\n'}
-        <Text style={styles.subtitle}>os produtos</Text>
+        Choose {'\n'}
+        <Text style={styles.subtitle}>the products</Text>
       </Text>
       <Text style={styles.message}>
-        Descubra receitas baseadas nos produtos que você escolheu
+        Find recipes based on the products you chose.
       </Text>
 
       <ScrollView
@@ -41,6 +52,14 @@ export default function Index() {
           />
         ))}
       </ScrollView>
+
+      {selected.length > 0 && (
+        <Selected
+          quantity={selected.length}
+          onClear={handleClearSelected}
+          onSearch={() => {}}
+        />
+      )}
     </View>
   )
 }
