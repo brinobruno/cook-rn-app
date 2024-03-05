@@ -45,7 +45,7 @@ export default function Index() {
         {Array.from({ length: 25 }).map((_item, index) => (
           <Ingredient
             key={index}
-            text="Apple"
+            title="Apple"
             image={apple}
             selected={selected.includes(String(index))}
             onPress={() => handleToggleSelected(String(index))}

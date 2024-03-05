@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 
 import { styles } from './styles'
 import { theme } from '@/theme'
+import { Button } from '@/components/Button'
 
 interface SelectedProps {
   quantity: number
@@ -27,6 +28,8 @@ export function Selected({ quantity, onClear, onSearch }: SelectedProps) {
           onPress={onClear}
         />
       </View>
+
+      <Button title="Find" onPress={onSearch} />
     </Animated.View>
   )
 }

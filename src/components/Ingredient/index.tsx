@@ -8,13 +8,13 @@ import {
 
 import { styles } from './styles'
 
-interface IngredientsProps {
-  text: string
+export interface IngredientsProps {
+  title: string
   image: ImageProps
   selected?: boolean
 }
 export function Ingredient({
-  text,
+  title,
   image,
   selected = false,
   ...rest
@@ -24,8 +24,8 @@ export function Ingredient({
       style={[styles.container, selected && styles.selected]}
       {...rest}
     >
-      <Image source={image} alt={text} style={styles.image} />
-      <Text style={styles.title}>{text}</Text>
+      <Image source={image} alt={title} style={styles.image} />
+      <Text style={styles.title}>{title}</Text>
     </Pressable>
   )
 }
