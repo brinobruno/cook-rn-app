@@ -21,4 +21,9 @@ export const styles = StyleSheet.create({
   recipesContent: {
     gap: 16,
   },
+  empty: {
+    fontSize: theme.fonts.size.body.md,
+    fontFamily: theme.fonts.family.regular,
+    color: theme.colors.gray_400,
+  },
 })

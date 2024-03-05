@@ -5,23 +5,41 @@ import { useEffect, useState } from 'react'
 
 import { services } from '@/services'
 import { Recipe } from '@/components/Recipe'
-import { styles } from './styles'
 import { Ingredients } from '@/components/Ingredients'
+import { Loading } from '@/components/Loading'
+import { styles } from './styles'
+
+export function EmptyList() {
+  return (
+    <Text style={styles.empty}>
+      No recipes were found. Choose other ingredients.
+    </Text>
+  )
+}
 
 export default function Recipes() {
-  const params = useLocalSearchParams<{ ingredientsIds: string }>()
+  const [isLoading, setIsLoading] = useState(true)
   const [ingredients, setIngredients] = useState<IngredientResponse[]>([])
   const [recipes, setRecipes] = useState<RecipeResponse[]>([])
 
+  const params = useLocalSearchParams<{ ingredientsIds: string }>()
   const ingredientsIds = params.ingredientsIds.split(',')
 
   useEffect(() => {
-    services.ingredients.findByIds(ingredientsIds).then(setIngredients)
+    services.recipes
+      .findByIngredientsIds(ingredientsIds)
+      .then((response) => setRecipes(response))
+      .finally(() => setIsLoading(false))
   }, [ingredientsIds])
 
   useEffect(() => {
-    services.recipes.findByIngredientsIds(ingredientsIds).then(setRecipes)
+    services.ingredients
+      .findByIds(ingredientsIds)
+      .then((response) => setIngredients(response))
+      .finally(() => setIsLoading(false))
   }, [ingredientsIds])
+
+  if (isLoading) return <Loading />
 
   return (
     <View style={styles.container}>
@@ -40,12 +58,18 @@ export default function Recipes() {
       <FlatList
         data={recipes}
         keyExtractor={(recipe) => recipe.id}
-        renderItem={({ item }) => <Recipe recipe={item} />}
+        renderItem={({ item }) => (
+          <Recipe
+            recipe={item}
+            onPress={() => router.navigate(`/recipe/${item.id}`)}
+          />
+        )}
         style={styles.recipes}
         contentContainerStyle={styles.recipesContent}
         showsVerticalScrollIndicator={false}
         columnWrapperStyle={{ gap: 16 }}
         numColumns={2}
+        ListEmptyComponent={<EmptyList />}
       />
     </View>
   )

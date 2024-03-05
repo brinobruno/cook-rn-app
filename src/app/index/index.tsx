@@ -55,7 +55,7 @@ export default function Index() {
           <Ingredient
             key={ingredient.id}
             name={ingredient.name}
-            image={`${services.storage.imagePath}/${ingredient.image}`}
+            image={ingredient.image}
             selected={selected.includes(ingredient.id)}
             onPress={() => handleToggleSelected(ingredient.id)}
           />

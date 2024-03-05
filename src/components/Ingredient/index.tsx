@@ -1,5 +1,6 @@
 import { Image, Pressable, Text, PressableProps } from 'react-native'
 
+import { services } from '@/services'
 import { styles } from './styles'
 
 export interface IngredientsProps {
@@ -18,7 +19,11 @@ export function Ingredient({
       style={[styles.container, selected && styles.selected]}
       {...rest}
     >
-      <Image source={{ uri: image }} alt={name} style={styles.image} />
+      <Image
+        source={{ uri: `${services.storage.imagePath}/${image}` }}
+        alt={name}
+        style={styles.image}
+      />
       <Text style={styles.title}>{name}</Text>
     </Pressable>
   )

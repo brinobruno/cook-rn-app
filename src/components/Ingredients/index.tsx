@@ -22,7 +22,6 @@ export function Ingredients({ ingredients }: Props) {
           key={ingredient.name}
           name={ingredient.name}
           image={ingredient.image}
-          // image={`${services.storage.imagePath}/${ingredient.image}`}
         />
       ))}
     </ScrollView>
