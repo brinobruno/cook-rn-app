@@ -2,7 +2,7 @@ import { Alert, ScrollView, Text, View } from 'react-native'
 import { useState, useEffect } from 'react'
 import { router } from 'expo-router'
 
-import { services } from '@/server'
+import { services } from '@/services'
 import { Ingredient } from '@/components/Ingredient'
 import { Selected } from '@/components/Selected'
 import { styles } from './styles'
@@ -34,7 +34,7 @@ export default function Index() {
   }
 
   function handleSearch() {
-    router.navigate('/recipes')
+    router.navigate(`/recipes/${selected}`)
   }
 
   return (
@@ -54,7 +54,7 @@ export default function Index() {
         {ingredients.map((ingredient) => (
           <Ingredient
             key={ingredient.id}
-            title={ingredient.name}
+            name={ingredient.name}
             image={`${services.storage.imagePath}/${ingredient.image}`}
             selected={selected.includes(ingredient.id)}
             onPress={() => handleToggleSelected(ingredient.id)}

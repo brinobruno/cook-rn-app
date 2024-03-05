@@ -19,9 +19,9 @@ export function Ingredients({ ingredients }: Props) {
     >
       {ingredients.map((ingredient) => (
         <Ingredient
-          key={ingredient.title}
-          title={ingredient.title}
-          image={require('@/images/apple.png')}
+          key={ingredient.name}
+          name={ingredient.name}
+          image={ingredient.image}
           // image={`${services.storage.imagePath}/${ingredient.image}`}
         />
       ))}

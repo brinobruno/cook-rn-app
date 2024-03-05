@@ -3,12 +3,12 @@ import { Image, Pressable, Text, PressableProps } from 'react-native'
 import { styles } from './styles'
 
 export interface IngredientsProps {
-  title: string
+  name: string
   image: string
   selected?: boolean
 }
 export function Ingredient({
-  title,
+  name,
   image,
   selected = false,
   ...rest
@@ -18,8 +18,8 @@ export function Ingredient({
       style={[styles.container, selected && styles.selected]}
       {...rest}
     >
-      <Image source={{ uri: image }} alt={title} style={styles.image} />
-      <Text style={styles.title}>{title}</Text>
+      <Image source={{ uri: image }} alt={name} style={styles.image} />
+      <Text style={styles.title}>{name}</Text>
     </Pressable>
   )
 }
