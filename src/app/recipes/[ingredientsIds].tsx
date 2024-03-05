@@ -40,15 +40,12 @@ export default function Recipes() {
       <FlatList
         data={recipes}
         keyExtractor={(recipe) => recipe.id}
-        renderItem={({ item }) => (
-          <Recipe
-            recipe={{
-              name: item.name,
-              image: item.image,
-              minutes: item.minutes,
-            }}
-          />
-        )}
+        renderItem={({ item }) => <Recipe recipe={item} />}
+        style={styles.recipes}
+        contentContainerStyle={styles.recipesContent}
+        showsVerticalScrollIndicator={false}
+        columnWrapperStyle={{ gap: 16 }}
+        numColumns={2}
       />
     </View>
   )
