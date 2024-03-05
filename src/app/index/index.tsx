@@ -5,15 +5,22 @@ import { router } from 'expo-router'
 import { services } from '@/services'
 import { Ingredient } from '@/components/Ingredient'
 import { Selected } from '@/components/Selected'
+import { Loading } from '@/components/Loading'
 import { styles } from './styles'
 
 export default function Index() {
+  const [isLoading, setIsLoading] = useState(true)
   const [selected, setSelected] = useState<string[]>([])
   const [ingredients, setIngredients] = useState<IngredientResponse[]>([])
 
   useEffect(() => {
-    services.ingredients.findAll().then(setIngredients)
+    services.ingredients
+      .findAll()
+      .then(setIngredients)
+      .finally(() => setIsLoading(false))
   }, [])
+
+  if (isLoading) return <Loading />
 
   function handleToggleSelected(value: string) {
     if (selected.includes(value)) {
